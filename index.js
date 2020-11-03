@@ -9,7 +9,8 @@ async function run() {
     const prBody = github.context.payload.pull_request.body;
 
     let regex = new RegExp(`${jiraPrefix}-[0-9]+`);
-    if (!regex.test(prTitle) || !regex.test(prBody)) {
+    let regexBody = new RegExp(`https:\/\/togather\.atlassian\.net+`);
+    if (!regex.test(prTitle) || !regexBody.test(prBody)) {
       core.setFailed("Jira Issue Key missing in PR title or description. " + prTitle + " prefix : " + jiraPrefix);
       return;
     }
